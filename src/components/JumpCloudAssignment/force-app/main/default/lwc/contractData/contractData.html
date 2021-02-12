@@ -1,0 +1,17 @@
+<template>
+    <lightning-card title="Contract Data" icon-name="custom:custom62">
+        <div class="slds-m-around_medium">
+           <!-- <lightning-record-form object-api-name={objectApiName} record-id={recordId} fields={fields}></lightning-record-form> -->
+            <ul class="slds-list_vertical slds-has-dividers_top-space">
+                <template for:each={contract.data} for:item="con" if:true={contract.data}>
+                    <li key={con.Id} class="slds-list__item">
+                        {con.Name}, {con.Review_Date__c}
+                    </li>
+                </template>
+            <template if:true={contract.error}>
+                <li class="slds-list__item"><h3 class="slds-text-heading_small slds-text-color_error">{contract.error}</h3></li>
+            </template>
+        </ul>
+        </div>
+    </lightning-card>
+</template>

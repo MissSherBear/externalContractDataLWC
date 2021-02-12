@@ -1,0 +1,18 @@
+{
+    "packageDirectories": [
+        {
+            "path": "force-app",
+            "default": true,
+            "package": "JumpCloudPackage",
+            "versionName": "ver 0.1",
+            "versionNumber": "0.1.0.NEXT"
+        }
+    ],
+    "namespace": "",
+    "sfdcLoginUrl": "https://login.salesforce.com",
+    "sourceApiVersion": "50.0",
+    "packageAliases": {
+        "JumpCloudPackage": "0Ho1U000000PBB5SAO",
+        "JumpCloudPackage@0.1.0-1": "04t1U000007ID4EQAW"
+    }
+}
