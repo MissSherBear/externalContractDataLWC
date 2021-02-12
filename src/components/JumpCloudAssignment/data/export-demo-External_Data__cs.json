@@ -1,0 +1,84 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "External_Data__c",
+                "referenceId": "External_Data__cRef1"
+            },
+            "Name": "ED-010",
+            "Account__c": "@AccountRef1"
+        },
+        {
+            "attributes": {
+                "type": "External_Data__c",
+                "referenceId": "External_Data__cRef2"
+            },
+            "Name": "ED-011",
+            "Account__c": "@AccountRef1"
+        },
+        {
+            "attributes": {
+                "type": "External_Data__c",
+                "referenceId": "External_Data__cRef3"
+            },
+            "Name": "ED-002",
+            "Account__c": "@AccountRef1"
+        },
+        {
+            "attributes": {
+                "type": "External_Data__c",
+                "referenceId": "External_Data__cRef4"
+            },
+            "Name": "ED-009",
+            "Account__c": "@AccountRef1"
+        },
+        {
+            "attributes": {
+                "type": "External_Data__c",
+                "referenceId": "External_Data__cRef5"
+            },
+            "Name": "ED-003",
+            "Account__c": "@AccountRef1"
+        },
+        {
+            "attributes": {
+                "type": "External_Data__c",
+                "referenceId": "External_Data__cRef6"
+            },
+            "Name": "ED-008",
+            "Account__c": "@AccountRef2"
+        },
+        {
+            "attributes": {
+                "type": "External_Data__c",
+                "referenceId": "External_Data__cRef7"
+            },
+            "Name": "ED-005",
+            "Account__c": "@AccountRef2"
+        },
+        {
+            "attributes": {
+                "type": "External_Data__c",
+                "referenceId": "External_Data__cRef8"
+            },
+            "Name": "ED-006",
+            "Account__c": "@AccountRef2"
+        },
+        {
+            "attributes": {
+                "type": "External_Data__c",
+                "referenceId": "External_Data__cRef9"
+            },
+            "Name": "ED-004",
+            "Account__c": "@AccountRef2"
+        },
+        {
+            "attributes": {
+                "type": "External_Data__c",
+                "referenceId": "External_Data__cRef10"
+            },
+            "Name": "ED-007",
+            "Account__c": "@AccountRef2"
+        }
+    ]
+}
