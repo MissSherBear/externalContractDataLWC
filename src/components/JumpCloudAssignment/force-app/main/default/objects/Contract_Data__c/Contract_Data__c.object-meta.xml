@@ -143,6 +143,7 @@
     <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
@@ -155,6 +156,7 @@
     <externalSharingModel>Private</externalSharingModel>
     <label>Contract Data</label>
     <nameField>
+        <displayFormat>Contract-{000}</displayFormat>
         <label>Contract Data Name</label>
         <type>AutoNumber</type>
     </nameField>
