@@ -1,5 +1,5 @@
 # JumpCloud Interview Assignment
-![Alt text](./assets/title.png "Title")
+![Alt text](./assets/page.png "Page")
 
 1. [About](#about)
 1. [Installation](#installation)
@@ -12,6 +12,8 @@
 ## About
 This repository is composed of two lightning web components which show Account related records from the two custom objects External Data and Contract Data. These are generic and customizable components built using Salesforce [Lightning Web Components](https://developer.salesforce.com/docs/component-library/documentation/lwc) and [SLDS](https://www.lightningdesignsystem.com/) style.
 It does not rely on third party libraries and you have full control over its datasource.
+
+![Alt text](./assets/component.png "component")
 
 ## Installation
 ### Using SFDX
@@ -39,8 +41,7 @@ git clone https://github.com/libra34567/lightningRelatedListWithFilter.git
 cd lightningRelatedListWithFilter/package
 ```
 3. Ant deploy the package
-```
-```
+
 ### Load Sample Data
 1. Export the data in your default scratch org.
 Use the force:data:soql:query command to fine-tune the SELECT query so that it returns the exact set of data you want to export.
