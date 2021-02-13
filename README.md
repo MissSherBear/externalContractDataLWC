@@ -1,4 +1,16 @@
 # JumpCloud Interview Assignment
+<p align="center">
+    <a href="https://codecov.io/gh/MissSherBear/jumpcloudtest">
+      <img src="https://codecov.io/gh/MissSherBear/jumpcloudtest/branch/master/graph/badge.svg" />
+    </a>
+    <a href="https://github.com/MissSherBear/jumpcloudtest/issues">
+      <img alt="Issues" src="https://img.shields.io/github/issues/MissSherBear/jumpcloudtest?color=0088ff" />
+    </a>
+    <a href="https://github.com/MissSherBear/jumpcloudtest/pulls">
+      <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/MissSherBear/jumpcloudtest?color=0088ff" />
+    </a>
+    </p>
+
 ![Alt text](./assets/page.png "Page")
 
 1. [About](#about)
@@ -8,6 +20,7 @@
     - [Load Sample Data](#load-sample-data)
 1. [Documentation](#documentation)
     - [How to Display Components on a Lightning Record Page](#getting-started) 
+1. [Bonus Questions](#bonus-questions)
 
 ## About
 This repository is composed of two lightning web components which show Account related records from the two custom objects External Data and Contract Data. These are generic and customizable components built using Salesforce [Lightning Web Components](https://developer.salesforce.com/docs/component-library/documentation/lwc) and [SLDS](https://www.lightningdesignsystem.com/) style.
@@ -66,5 +79,9 @@ sfdx force:data:tree:import -p export-demo-Account-External_Data__c-Contract_Dat
 
 ![Alt text](./assets/edit.png "Edit")
 
-
+## Bonus Questions
+#### 1. <b>How would you split up these two Lighting Web Components into two different projects that could be deployed independently, but share the same .sfdx project?</b> 
+This can be solved by using two separate SFDX Package Directories where you can deploy packages independently of each other.<br> 
+#### 2. <b>How would you separate permissions to make sure each of these projects are truly independent?</b>
+Using `default/main` tells the CLI where to save new metadata. You can organize the different metadata files for each project by putting the files into modules that are siblings to `main` inside of your default directory. The CLI is smart enough to remember where specific source files are located after you do your initial source push. From there on out every time you do a pull, the correct file will be updated automatically.
 
