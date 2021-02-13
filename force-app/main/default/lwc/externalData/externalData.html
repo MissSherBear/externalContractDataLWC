@@ -5,7 +5,7 @@
             <ul class="slds-list_vertical slds-has-dividers_top-space">
                 <template for:each={external.data} for:item="ex" if:true={external.data}>
                     <li key={ex.Id} class="slds-list__item">
-                        {ex.Name}
+                        <strong>External Data ID: </strong>{ex.Name}
                     </li>
                 </template>
             <template if:true={external.error}>
