@@ -18,12 +18,14 @@
     - [Using SFDX](#using-sfdx)
     - [Load Sample Data](#load-sample-data)
 1. [Documentation](#documentation)
+    - [externalData Component](#externalData-component)
+    - [contractData Component](#contractData-component)
+    - [ExternalContractController](#externalContractController)
     - [How to Display Components on a Lightning Record Page](#getting-started) 
 1. [Bonus Questions](#bonus-questions)
 
 ## About
-This repository is composed of two lightning web components which show Account related records from the two custom objects External Data and Contract Data. These are generic and customizable components built using Salesforce [Lightning Web Components](https://developer.salesforce.com/docs/component-library/documentation/lwc) and [SLDS](https://www.lightningdesignsystem.com/) style.
-It does not rely on third party libraries and you have full control over its datasource.
+This repository is composed of two lightning web components which show Account related records from the two custom objects, External_Data__c and Contract_Data__c. These are generic and customizable components built using Salesforce [Lightning Web Components](https://developer.salesforce.com/docs/component-library/documentation/lwc) and [SLDS](https://www.lightningdesignsystem.com/) style.
 
 ![Alt text](./assets/component.png "component")
 
@@ -59,6 +61,123 @@ sfdx force:data:tree:import -p export-demo-Account-External_Data__c-Contract_Dat
 ```
 
 ## Documentation
+### externalData Component
+Component Markup:
+```html
+<template>
+    <lightning-card title="External Data" icon-name="custom:custom63">
+        <div class="slds-m-around_medium">
+            <ul class="slds-list_vertical slds-has-dividers_top-space">
+                <template for:each={external.data} for:item="ex" if:true={external.data}>
+                    <li key={ex.Id} class="slds-list__item">
+                        <strong>External Data ID: </strong>{ex.Name}
+                    </li>
+                </template>
+            <template if:true={external.error}>
+                <li class="slds-list__item"><h3 class="slds-text-heading_small slds-text-color_error">{external.error}</h3></li>
+            </template>
+        </ul>
+        </div>
+    </lightning-card>
+</template>
+```
+JavaScript File:
+```js
+import { LightningElement, wire, api } from 'lwc';
+import getExternalList from '@salesforce/apex/ExternalContractController.getExternalList';
+
+export default class ExternalData extends LightningElement {
+// Flexipage gives us the recordId and objectApiName
+ @api recordId;
+ @api objectApiName;
+ fields = ['Name']; 
+// Calling the Apex method using Wire Decorator with a Parameter
+ @wire(getExternalList, { accId: '$recordId' }) 
+ external;
+}
+```
+### contractData Component
+Component Markup:
+```html
+<template>
+    <lightning-card title="Contract Data" icon-name="custom:custom62">
+        <div class="slds-m-around_medium">
+            <ul class="slds-list_vertical slds-has-dividers_top-space">
+                <template for:each={contract.data} for:item="con" if:true={contract.data}>
+                    <li key={con.Id} class="slds-list__item">
+                        {con.Name}&nbsp;&nbsp;&nbsp;&nbsp;   
+                        <strong>&nbsp;&nbsp;Review Date: </strong><lightning-formatted-date-time value={con.Review_Date__c} year="numeric" month="2-digit" day="2-digit" time-zone="UTC"></lightning-formatted-date-time>
+                    </li>
+                </template>
+            <template if:true={contract.error}>
+                <li class="slds-list__item"><h3 class="slds-text-heading_small slds-text-color_error">{contract.error}</h3></li>
+            </template>
+        </ul>
+        </div>
+    </lightning-card>
+</template>
+```
+JavaScript File:
+```js
+import { LightningElement, wire, api } from 'lwc';
+import getContractList from '@salesforce/apex/ExternalContractController.getContractList';
+
+export default class ContractData extends LightningElement {
+    
+// Flexipage gives us the recordId and objectApiName
+ @api recordId;
+ @api objectApiName;
+ fields = ['Name']; 
+// Calling the Apex method using Wire Decorator with a Parameter
+ @wire(getContractList, { accId: '$recordId' }) 
+ contract;
+}
+```
+### ExternalContractController
+Apex Class:
+```cls
+public with sharing class ExternalContractController {
+    @AuraEnabled(cacheable=true)
+    public static List<External_Data__c> getExternalList(Id accId){
+        system.debug('accId is: '+ accId);
+        return [SELECT Id, Name FROM External_Data__c WHERE Account__c = :accId];
+    }
+    @AuraEnabled(cacheable=true)
+    public static List<Contract_Data__c> getContractList(Id accId){
+        system.debug('accId is: '+ accId);
+        return [SELECT Id, Name, Review_Date__c FROM Contract_Data__c WHERE Account__c = :accId];
+    }
+}
+```
+Test Class:
+```cls
+@istest
+private class ExternalContractControllerTest {
+    @istest
+    static void testBehavior() {
+
+        account a = new account();
+        a.Name = 'Banana Peels Incorporated';
+        insert a;
+
+        External_Data__c e = new External_Data__c();
+        e.Account__c = a.Id;
+        insert e;
+
+        Contract_Data__c c = new Contract_Data__c();
+        c.Account__c = a.Id;
+        insert c;
+        
+        Test.startTest();
+        System.assertNotEquals(null, ExternalContractController.getExternalList(a.Id));
+        System.assertNotEquals(null, ExternalContractController.getContractList(a.Id));
+        Test.stopTest();
+        
+
+    }
+}
+```
+
 ### Getting Started 
 <b>How to use the related list on your lightning record page:</b>
 1. Navigate to the parent Account object record page and click edit page from the gear icon.
