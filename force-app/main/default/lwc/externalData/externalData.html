@@ -1,7 +1,6 @@
 <template>
     <lightning-card title="External Data" icon-name="custom:custom63">
         <div class="slds-m-around_medium">
-           <!-- <lightning-record-form object-api-name={objectApiName} record-id={recordId} fields={fields}></lightning-record-form> -->
             <ul class="slds-list_vertical slds-has-dividers_top-space">
                 <template for:each={external.data} for:item="ex" if:true={external.data}>
                     <li key={ex.Id} class="slds-list__item">
