@@ -16,7 +16,6 @@
 1. [About](#about)
 1. [Installation](#installation)
     - [Using SFDX](#using-sfdx)
-    - [Using meta-data](using-meta-data)
     - [Load Sample Data](#load-sample-data)
 1. [Documentation](#documentation)
     - [How to Display Components on a Lightning Record Page](#getting-started) 
@@ -43,17 +42,6 @@ cd jumpcloudtest/
 ```
 sfdx force:source:deploy -p sf_relatedList -u $YOURORGNAME
 ```
-
-### Using meta-data
-1. Clone this repo
-```
-git clone https://github.com/libra34567/lightningRelatedListWithFilter.git
-```
-2. Direct to the root/package
-```
-cd lightningRelatedListWithFilter/package
-```
-3. Ant deploy the package
 
 ### Load Sample Data
 1. Export the data in your default scratch org.
