@@ -42,7 +42,7 @@ cd jumpcloudtest/
 ```
 3. Deploy to your desired org
 ```
-sfdx force:source:deploy -p sf_relatedList -u $YOURORGNAME
+sfdx force:source:deploy 
 ```
 
 ### Load Sample Data
