@@ -1,8 +1,5 @@
 # JumpCloud Interview Assignment
 <p align="center">
-    <a href="https://codecov.io/gh/MissSherBear/jumpcloudtest">
-      <img src="https://codecov.io/gh/MissSherBear/jumpcloudtest/branch/master/graph/badge.svg" />
-    </a>
     <a href="https://github.com/MissSherBear/jumpcloudtest/issues">
       <img alt="Issues" src="https://img.shields.io/github/issues/MissSherBear/jumpcloudtest?color=0088ff" />
     </a>
@@ -69,6 +66,7 @@ sfdx force:data:tree:import -p export-demo-Account-External_Data__c-Contract_Dat
 ```
 
 ## Documentation
+I created two custom objects labeled External_Data__c and Contract_Data__c. Set the Salesforce default "Name" field to an auto-number on both objects. On each object, I created a custom lookup field named Account__c which is a lookup relationship to the standard Account object. For the Contract Data object, I created a custom date field named Review_Date__c. Then I created two Lightning Web Components labeled contractData and externalData which display related External_Data__c and Contract_Data__c records on an Account detail page. I modified the component markup to format the Review_Date__c field to be displayed as MM/DD/YYYY on the contractData card.
 ### externalData Component
 Component Markup:
 ```html
@@ -132,7 +130,7 @@ import getContractList from '@salesforce/apex/ExternalContractController.getCont
 
 export default class ContractData extends LightningElement {
     
-// Flexipage gives us the recordId and objectApiName
+// Flexipage gives us the recordId and objectApiName of the parent Account record on the current page
  @api recordId;
  @api objectApiName;
  fields = ['Name']; 
@@ -142,14 +140,20 @@ export default class ContractData extends LightningElement {
 }
 ```
 ### ExternalContractController
+Both components are managed by a single Apex controller class named ExternalContractController. The controller class filters the related records shown on each component based on the parent AccountId and returns a method for each related object. This ensures that the Account__c lookup field matches the AccountId.<br>
+
 Apex Class:
 ```cls
 public with sharing class ExternalContractController {
+
+    // This method returns all External_Data__c records with a matching AccountId
     @AuraEnabled(cacheable=true)
     public static List<External_Data__c> getExternalList(Id accId){
         system.debug('accId is: '+ accId);
         return [SELECT Id, Name FROM External_Data__c WHERE Account__c = :accId];
     }
+
+    // This method returns all Contract_Data__c records with a matching AccountId
     @AuraEnabled(cacheable=true)
     public static List<Contract_Data__c> getContractList(Id accId){
         system.debug('accId is: '+ accId);
@@ -161,13 +165,14 @@ Test Class:
 ```cls
 @istest
 private class ExternalContractControllerTest {
-    @istest
-    static void testBehavior() {
+    @istest static void testBehavior() {
 
+        // Creates test Account data to be used in methods
         account a = new account();
         a.Name = 'Banana Peels Incorporated';
         insert a;
 
+        // Creates test External Data and Contract Data related records based on the Account record above 
         External_Data__c e = new External_Data__c();
         e.Account__c = a.Id;
         insert e;
@@ -176,11 +181,13 @@ private class ExternalContractControllerTest {
         c.Account__c = a.Id;
         insert c;
         
+        // System.assertNotEquals() checks to see if the test works as expected. Verifies the related records were created and have a matching AccountId
         Test.startTest();
         System.assertNotEquals(null, ExternalContractController.getExternalList(a.Id));
         System.assertNotEquals(null, ExternalContractController.getContractList(a.Id));
         Test.stopTest();
         
+        // Used the Test.startTest() and Test.stopTest() statements to increase Governor Limits on my test class
 
     }
 }
