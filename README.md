@@ -1,4 +1,4 @@
-# JumpCloud Interview Assignment
+# External Data and Contract Data LWC
 <p align="center">
     <a href="https://github.com/MissSherBear/jumpcloudtest/issues">
       <img alt="Issues" src="https://img.shields.io/github/issues/MissSherBear/jumpcloudtest?color=0088ff" />
